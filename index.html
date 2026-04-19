@@ -22,22 +22,24 @@
         .subtitle { font-size: 0.7rem; color: #666; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 40px; }
         
         .links { display: flex; flex-direction: column; gap: 12px; }
-        .link-item { text-decoration: none; color: var(--text); background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 16px; border-radius: 12px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; cursor: pointer; }
+        .link-item { text-decoration: none; color: var(--text); background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); padding: 16px; border-radius: 12px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; cursor: pointer; }
         .link-item:hover { background: var(--accent); color: #000; transform: translateY(-2px); font-weight: 600; }
 
-        /* MODAL DE CERTIFICADOS */
-        #modal-certificados { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 100; display: none; overflow-y: auto; padding: 40px 20px; animation: slideIn 0.4s ease; }
+        /* MODAIS */
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 100; display: none; overflow-y: auto; padding: 40px 20px; animation: slideIn 0.4s ease; }
         @keyframes slideIn { from { transform: translateY(100%); } to { transform: translateY(0); } }
         
         .modal-header { display: flex; justify-content: space-between; align-items: center; max-width: 500px; margin: 0 auto 30px; }
         .btn-voltar { background: none; border: 1px solid #333; color: #fff; padding: 8px 15px; border-radius: 20px; cursor: pointer; font-size: 0.7rem; text-transform: uppercase; }
         
-        .cert-list { max-width: 500px; margin: 0 auto; text-align: left; }
+        .modal-body { max-width: 500px; margin: 0 auto; text-align: left; line-height: 1.6; }
         .cert-category { color: #555; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; margin: 25px 0 10px; border-bottom: 1px solid #111; padding-bottom: 5px; }
         .cert-card { background: #0a0a0a; border: 1px solid #111; padding: 15px; border-radius: 10px; margin-bottom: 10px; }
         .cert-card h3 { font-size: 0.85rem; margin-bottom: 4px; color: #eee; }
         .cert-card p { font-size: 0.7rem; color: #666; }
         .cert-card .tag { display: inline-block; margin-top: 8px; font-size: 0.6rem; background: #1a1a1a; padding: 3px 8px; border-radius: 4px; color: #888; }
+
+        .sobre-texto { color: #ccc; font-size: 0.9rem; margin-bottom: 20px; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         footer { margin-top: 50px; font-size: 0.6rem; color: #333; letter-spacing: 2px; }
@@ -52,110 +54,72 @@
             <div class="subtitle">Telecomunicações Multiskill</div>
             
             <nav class="links">
-                <a href="https://www.linkedin.com/in/vitorevangelistacastromultiskill/" target="_blank" class="link-item">LinkedIn</a>
-                <div class="link-item" onclick="abrirCertificados()">Certificados</div>
+                <!-- Botão Sobre agora no Topo -->
+                <div class="link-item" onclick="abrirModal('modal-sobre')">Sobre</div>
+                
+                <!-- Demais botões -->
+                <div class="link-item" onclick="abrirModal('modal-certificados')">Certificados</div>
+                <a href="mailto:vitorcastrohbl@gmail.com" class="link-item">Gmail</a>
                 <a href="https://www.instagram.com/vitor.ro_/" target="_blank" class="link-item">Instagram</a>
+                <a href="https://www.linkedin.com/in/vitorevangelistacastromultiskill/" target="_blank" class="link-item">LinkedIn</a>
             </nav>
             
             <footer>© 2026 • VITOR EVANGELISTA</footer>
         </div>
     </div>
 
-    <!-- TELA DE CERTIFICADOS -->
-    <div id="modal-certificados">
+    <!-- MODAL SOBRE -->
+    <div id="modal-sobre" class="modal">
+        <div class="modal-header">
+            <h2 style="font-size: 1rem; letter-spacing: 2px;">SOBRE MIM</h2>
+            <button class="btn-voltar" onclick="fecharModal('modal-sobre')">Voltar</button>
+        </div>
+        <div class="modal-body">
+            <p class="sobre-texto">
+                Profissional com sólida experiência em <b>Telecomunicações e Fibra Óptica (FTTH)</b>. Especialista técnico com certificações avançadas em tecnologias de rede e IoT.
+            </p>
+            <p class="sobre-texto">
+                Minha atuação une a competência técnica em infraestrutura e redes com habilidades estratégicas em <b>Vendas de Elite e Atendimento ao Cliente</b>, focado em entregar soluções de alta performance e experiência do usuário (NPS).
+            </p>
+            <p class="sobre-texto">
+                Sempre atualizado com as normas de segurança (NR 12, 33, 35) e pronto para desafios que exijam liderança e resiliência técnica.
+            </p>
+        </div>
+    </div>
+
+    <!-- MODAL CERTIFICADOS -->
+    <div id="modal-certificados" class="modal">
         <div class="modal-header">
             <h2 style="font-size: 1rem; letter-spacing: 2px;">FORMAÇÃO TÉCNICA</h2>
-            <button class="btn-voltar" onclick="fecharCertificados()">Voltar</button>
+            <button class="btn-voltar" onclick="fecharModal('modal-certificados')">Voltar</button>
         </div>
 
-        <div class="cert-list">
+        <div class="modal-body">
             <div class="cert-category">Telecomunicações & Fibra</div>
-            <div class="cert-card">
-                <h3>Técnico de Fibra IoT 2.0</h3>
-                <p>FiberSchool</p>
-                <span class="tag">25 Horas</span>
-            </div>
-            <div class="cert-card">
-                <h3>Fibra Óptica do Zero</h3>
-                <p>FiberSchool</p>
-                <span class="tag">08 Horas</span>
-            </div>
-            <div class="cert-card">
-                <h3>Dominando o Ping - Zero ao Avançado</h3>
-                <p>FiberSchool</p>
-                <span class="tag">03 Horas</span>
-            </div>
+            <div class="cert-card"><h3>Técnico de Fibra IoT 2.0</h3><p>FiberSchool</p><span class="tag">25 Horas</span></div>
+            <div class="cert-card"><h3>Fibra Óptica do Zero</h3><p>FiberSchool</p><span class="tag">08 Horas</span></div>
+            <div class="cert-card"><h3>Dominando o Ping</h3><p>FiberSchool</p><span class="tag">03 Horas</span></div>
 
-            <div class="cert-category">Gestão, Vendas & Atendimento</div>
-            <div class="cert-card">
-                <h3>Atendimento Encantador</h3>
-                <p>FiberSchool / Ketlin Speransa</p>
-                <span class="tag">08 Horas</span>
-            </div>
-            <div class="cert-card">
-                <h3>Vendedor de Elite</h3>
-                <p>FiberSchool</p>
-                <span class="tag">16 Horas</span>
-            </div>
-            <div class="cert-card">
-                <h3>Gestão de Talentos em Telecom</h3>
-                <p>FiberSchool</p>
-                <span class="tag">3.5 Horas</span>
-            </div>
-            <div class="cert-card">
-                <h3>NPS na Prática</h3>
-                <p>FiberSchool</p>
-                <span class="tag">01 Hora</span>
-            </div>
+            <div class="cert-category">Gestão & Vendas</div>
+            <div class="cert-card"><h3>Atendimento Encantador</h3><p>FiberSchool / Ketlin Speransa</p><span class="tag">08 Horas</span></div>
+            <div class="cert-card"><h3>Vendedor de Elite</h3><p>FiberSchool</p><span class="tag">16 Horas</span></div>
 
             <div class="cert-category">Segurança (NRs)</div>
-            <div class="cert-card">
-                <h3>NR 33 - Espaços Confinados</h3>
-                <p>FM Assessoria em Saúde e Segurança</p>
-                <span class="tag">16 Horas (Mar/2024)</span>
-            </div>
-            <div class="cert-card">
-                <h3>NR 35 - Trabalho em Altura</h3>
-                <p>FM Assessoria em Saúde e Segurança</p>
-                <span class="tag">08 Horas (Mar/2024)</span>
-            </div>
-            <div class="cert-card">
-                <h3>NR 12 - Segurança em Máquinas e Equipamentos</h3>
-                <p>FM Assessoria em Saúde e Segurança</p>
-                <span class="tag">04 Horas (Mar/2024)</span>
-            </div>
-            <div class="cert-card">
-                <h3>NR 06 - EPIs</h3>
-                <p>FM Assessoria em Saúde e Segurança</p>
-                <span class="tag">08 Horas (Mar/2024)</span>
-            </div>
+            <div class="cert-card"><h3>NR 33 / NR 35 / NR 12</h3><p>FM Assessoria</p><span class="tag">Atualizado 2024</span></div>
 
             <div class="cert-category">Outras Formações</div>
-            <div class="cert-card">
-                <h3>Informática Avançada</h3>
-                <p>Centro Salesiano do Menor</p>
-                <span class="tag">400 Horas</span>
-            </div>
-            <div class="cert-card">
-                <h3>Mecânico de Motores de Popa</h3>
-                <p>SENAI / PRONATEC</p>
-                <span class="tag">160 Horas</span>
-            </div>
-            <div class="cert-card">
-                <h3>Liderança, Aprendizado e Resiliência</h3>
-                <p>PUCRS (Malala Yousafzai, Leandro Karnal)</p>
-                <span class="tag">04 Horas</span>
-            </div>
+            <div class="cert-card"><h3>Informática Avançada</h3><p>Centro Salesiano do Menor</p><span class="tag">400 Horas</span></div>
+            <div class="cert-card"><h3>Mecânico de Motores de Popa</h3><p>SENAI</p><span class="tag">160 Horas</span></div>
         </div>
     </div>
 
     <script>
-        function abrirCertificados() {
-            document.getElementById('modal-certificados').style.display = 'block';
+        function abrirModal(id) {
+            document.getElementById(id).style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
-        function fecharCertificados() {
-            document.getElementById('modal-certificados').style.display = 'none';
+        function fecharModal(id) {
+            document.getElementById(id).style.display = 'none';
             document.body.style.overflow = 'auto';
         }
     </script>
