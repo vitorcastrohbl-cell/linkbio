@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vitor Evangelista | Links</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #000; --card-bg: #0a0a0a; --text: #fff; --accent: #fff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .outer-card { position: relative; width: 100%; max-width: 350px; padding: 1.5px; border-radius: 30px; overflow: hidden; background: rgba(255,255,255,0.1); animation: fadeIn 1s ease-out; }
+        .outer-card::before { content: ''; position: absolute; width: 150%; height: 150%; background: conic-gradient(transparent, transparent, transparent, var(--accent)); animation: rotate 3s linear infinite; top: -25%; left: -25%; }
+        @keyframes rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .inner-content { position: relative; background: var(--card-bg); width: 100%; padding: 50px 25px; border-radius: 29px; z-index: 1; text-align: center; }
+        .profile-icon { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 25px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); font-size: 2rem; color: var(--accent); }
+        h1 { font-size: 1.2rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
+        .subtitle { font-size: 0.7rem; color: #666; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 40px; }
+        .links { display: flex; flex-direction: column; gap: 15px; }
+        .link-item { text-decoration: none; color: var(--text); background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 18px; border-radius: 12px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
+        .link-item:hover { background: var(--accent); color: #000; transform: translateY(-2px); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        footer { margin-top: 50px; font-size: 0.6rem; color: #333; letter-spacing: 2px; }
+    </style>
+</head>
+<body>
+    <div class="outer-card">
+        <div class="inner-content">
+            <div class="profile-icon">V</div>
+            <h1>Vitor Evangelista</h1>
+            <div class="subtitle">Telecomunicações Multiskill</div>
+            <nav class="links">
+                <a href="https://www.linkedin.com/in/vitorevangelistacastromultiskill/" target="_blank" class="link-item">LinkedIn</a>
+                <a href="https://wa.me/5569993314524" target="_blank" class="link-item">WhatsApp</a>
+                <a href="https://www.instagram.com/vitor.ro_/" target="_blank" class="link-item">Instagram</a>
+            </nav>
+            <footer>© 2026 • VITOR EVANGELISTA</footer>
+        </div>
+    </div>
+</body>
+</html>
