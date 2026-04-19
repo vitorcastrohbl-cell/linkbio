@@ -8,34 +8,156 @@
     <style>
         :root { --bg: #000; --card-bg: #0a0a0a; --text: #fff; --accent: #fff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; overflow-x: hidden; }
+        
+        /* Borda Animada */
         .outer-card { position: relative; width: 100%; max-width: 350px; padding: 1.5px; border-radius: 30px; overflow: hidden; background: rgba(255,255,255,0.1); animation: fadeIn 1s ease-out; }
         .outer-card::before { content: ''; position: absolute; width: 150%; height: 150%; background: conic-gradient(transparent, transparent, transparent, var(--accent)); animation: rotate 3s linear infinite; top: -25%; left: -25%; }
         @keyframes rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
         .inner-content { position: relative; background: var(--card-bg); width: 100%; padding: 50px 25px; border-radius: 29px; z-index: 1; text-align: center; }
-        .profile-icon { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 25px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); font-size: 2rem; color: var(--accent); }
-        h1 { font-size: 1.2rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
+        .profile-icon { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 25px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); font-size: 2rem; color: var(--accent); font-weight: 300; }
+        
+        h1 { font-size: 1.2rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
         .subtitle { font-size: 0.7rem; color: #666; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 40px; }
-        .links { display: flex; flex-direction: column; gap: 15px; }
-        .link-item { text-decoration: none; color: var(--text); background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 18px; border-radius: 12px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
-        .link-item:hover { background: var(--accent); color: #000; transform: translateY(-2px); }
+        
+        .links { display: flex; flex-direction: column; gap: 12px; }
+        .link-item { text-decoration: none; color: var(--text); background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 16px; border-radius: 12px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; cursor: pointer; }
+        .link-item:hover { background: var(--accent); color: #000; transform: translateY(-2px); font-weight: 600; }
+
+        /* MODAL DE CERTIFICADOS */
+        #modal-certificados { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 100; display: none; overflow-y: auto; padding: 40px 20px; animation: slideIn 0.4s ease; }
+        @keyframes slideIn { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        
+        .modal-header { display: flex; justify-content: space-between; align-items: center; max-width: 500px; margin: 0 auto 30px; }
+        .btn-voltar { background: none; border: 1px solid #333; color: #fff; padding: 8px 15px; border-radius: 20px; cursor: pointer; font-size: 0.7rem; text-transform: uppercase; }
+        
+        .cert-list { max-width: 500px; margin: 0 auto; text-align: left; }
+        .cert-category { color: #555; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; margin: 25px 0 10px; border-bottom: 1px solid #111; padding-bottom: 5px; }
+        .cert-card { background: #0a0a0a; border: 1px solid #111; padding: 15px; border-radius: 10px; margin-bottom: 10px; }
+        .cert-card h3 { font-size: 0.85rem; margin-bottom: 4px; color: #eee; }
+        .cert-card p { font-size: 0.7rem; color: #666; }
+        .cert-card .tag { display: inline-block; margin-top: 8px; font-size: 0.6rem; background: #1a1a1a; padding: 3px 8px; border-radius: 4px; color: #888; }
+
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         footer { margin-top: 50px; font-size: 0.6rem; color: #333; letter-spacing: 2px; }
     </style>
 </head>
 <body>
+
     <div class="outer-card">
         <div class="inner-content">
             <div class="profile-icon">V</div>
             <h1>Vitor Evangelista</h1>
             <div class="subtitle">Telecomunicações Multiskill</div>
+            
             <nav class="links">
                 <a href="https://www.linkedin.com/in/vitorevangelistacastromultiskill/" target="_blank" class="link-item">LinkedIn</a>
-                <a href="https://wa.me/5569993314524" target="_blank" class="link-item">WhatsApp</a>
+                <div class="link-item" onclick="abrirCertificados()">Certificados</div>
                 <a href="https://www.instagram.com/vitor.ro_/" target="_blank" class="link-item">Instagram</a>
             </nav>
+            
             <footer>© 2026 • VITOR EVANGELISTA</footer>
         </div>
     </div>
+
+    <!-- TELA DE CERTIFICADOS -->
+    <div id="modal-certificados">
+        <div class="modal-header">
+            <h2 style="font-size: 1rem; letter-spacing: 2px;">FORMAÇÃO TÉCNICA</h2>
+            <button class="btn-voltar" onclick="fecharCertificados()">Voltar</button>
+        </div>
+
+        <div class="cert-list">
+            <div class="cert-category">Telecomunicações & Fibra</div>
+            <div class="cert-card">
+                <h3>Técnico de Fibra IoT 2.0</h3>
+                <p>FiberSchool</p>
+                <span class="tag">25 Horas</span>
+            </div>
+            <div class="cert-card">
+                <h3>Fibra Óptica do Zero</h3>
+                <p>FiberSchool</p>
+                <span class="tag">08 Horas</span>
+            </div>
+            <div class="cert-card">
+                <h3>Dominando o Ping - Zero ao Avançado</h3>
+                <p>FiberSchool</p>
+                <span class="tag">03 Horas</span>
+            </div>
+
+            <div class="cert-category">Gestão, Vendas & Atendimento</div>
+            <div class="cert-card">
+                <h3>Atendimento Encantador</h3>
+                <p>FiberSchool / Ketlin Speransa</p>
+                <span class="tag">08 Horas</span>
+            </div>
+            <div class="cert-card">
+                <h3>Vendedor de Elite</h3>
+                <p>FiberSchool</p>
+                <span class="tag">16 Horas</span>
+            </div>
+            <div class="cert-card">
+                <h3>Gestão de Talentos em Telecom</h3>
+                <p>FiberSchool</p>
+                <span class="tag">3.5 Horas</span>
+            </div>
+            <div class="cert-card">
+                <h3>NPS na Prática</h3>
+                <p>FiberSchool</p>
+                <span class="tag">01 Hora</span>
+            </div>
+
+            <div class="cert-category">Segurança (NRs)</div>
+            <div class="cert-card">
+                <h3>NR 33 - Espaços Confinados</h3>
+                <p>FM Assessoria em Saúde e Segurança</p>
+                <span class="tag">16 Horas (Mar/2024)</span>
+            </div>
+            <div class="cert-card">
+                <h3>NR 35 - Trabalho em Altura</h3>
+                <p>FM Assessoria em Saúde e Segurança</p>
+                <span class="tag">08 Horas (Mar/2024)</span>
+            </div>
+            <div class="cert-card">
+                <h3>NR 12 - Segurança em Máquinas e Equipamentos</h3>
+                <p>FM Assessoria em Saúde e Segurança</p>
+                <span class="tag">04 Horas (Mar/2024)</span>
+            </div>
+            <div class="cert-card">
+                <h3>NR 06 - EPIs</h3>
+                <p>FM Assessoria em Saúde e Segurança</p>
+                <span class="tag">08 Horas (Mar/2024)</span>
+            </div>
+
+            <div class="cert-category">Outras Formações</div>
+            <div class="cert-card">
+                <h3>Informática Avançada</h3>
+                <p>Centro Salesiano do Menor</p>
+                <span class="tag">400 Horas</span>
+            </div>
+            <div class="cert-card">
+                <h3>Mecânico de Motores de Popa</h3>
+                <p>SENAI / PRONATEC</p>
+                <span class="tag">160 Horas</span>
+            </div>
+            <div class="cert-card">
+                <h3>Liderança, Aprendizado e Resiliência</h3>
+                <p>PUCRS (Malala Yousafzai, Leandro Karnal)</p>
+                <span class="tag">04 Horas</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function abrirCertificados() {
+            document.getElementById('modal-certificados').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        function fecharCertificados() {
+            document.getElementById('modal-certificados').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    </script>
 </body>
 </html>
